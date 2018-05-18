@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- Archivo del que se obtendrán los parámetros de conexión a la base de 
+		datos -->
+	<properties resource="com/bbdd/accionistas/mappers/configuracion.properties" />
+	<!-- Definimos nombres cortos para las clases que conforman nuestro modelo 
+		de objetos -->
+	<typeAliases>
+		<typeAlias alias="EmpresaModelo"
+			type="com.bbdd.accionistas.modelos.EmpresaModelo" />
+		<typeAlias alias="AccionistaModelo"
+			type="com.bbdd.accionistas.modelos.AccionistaModelo" />
+	</typeAliases>
+	<!-- Propiedades de la conexión a la base de datos -->
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- Definimos tantos mappers como necesitemos -->
+	<mappers>
+		<mapper resource="com/bbdd/accionistas/mappers/EmpresasMapper.xml" />
+		<mapper resource="com/bbdd/accionistas/mappers/AccionistasMapper.xml" />
+	</mappers>
+</configuration>

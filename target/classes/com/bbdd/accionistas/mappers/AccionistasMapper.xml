@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbdd.accionistas.mappers.AccionistasSQL">
+	<resultMap id="resultAccionista" type="AccionistaModelo">
+		<id column="DNI" property="dni" javaType="long" />
+		<result column="NOMBRE" property="nombre" javaType="String" />
+		<result column="APELLIDOS" property="apellidos" javaType="String" />
+	</resultMap>
+	<select id="getAll" resultMap="resultAccionista">
+		SELECT * FROM Accionistas
+	</select>
+	<select id="getByDni" parameterType="long" resultType="AccionistaModelo">
+		SELECT * FROM Accionistas WHERE DNI = #{dni}
+	</select>
+	<delete id="deleteByDni" parameterType="long">
+		DELETE from Accionistas
+		WHERE DNI = #{dni}
+	</delete>
+	<insert id="insert" parameterType="AccionistaModelo">
+		INSERT INTO Accionistas (DNI, Nombre, Apellidos)
+		VALUES (#{dni}, #{nombre}, #{apellidos})
+	</insert>
+	<update id="update" parameterType="AccionistaModelo">
+		UPDATE Accionistas
+		SET Nombre = #{nombre}, Apellidos = #{apellidos}
+		WHERE DNI = #{dni}
+	</update>
+</mapper>

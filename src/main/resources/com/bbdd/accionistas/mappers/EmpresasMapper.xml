@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bbdd.accionistas.mappers.EmpresasSQL">
+
+	<!-- Indicamos la correspondencia entre propiedades de la clase modelo y 
+		las columnas de la tabla de la base de datos -->
+	<resultMap id="resultEmpresa" type="EmpresaModelo">
+		<id column="IDE" property="ide" javaType="long" />
+		<result column="NOMBRE" property="nombre" javaType="String" />
+		<result column="FACTURA" property="factura" javaType="float" />
+		<result column="IDA" property="ida" javaType="long" />
+	</resultMap>
+
+	<!-- Aquí definimos las sentencias SQL de distinto tipo (SELECT, DELETE, 
+		INSERT, UPDATE) que asociaremos a la clase mapper o de acceso a datos (DAO). 
+		IMPORTANTE: Las sentencias SQL que pongamos aquí no deben finalizar en punto 
+		y coma ';'. De lo contrario, obtendremos un error del tipo: 'ORA-00911: invalid 
+		character' -->
+
+	<select id="getAll" resultMap="resultEmpresa">
+		SELECT * FROM Empresas
+	</select>
+
+	<select id="getByIde" parameterType="long"
+		resultType="EmpresaModelo">
+		SELECT * FROM Empresas WHERE IDE = #{ide}
+	</select>
+
+	<delete id="deleteByIde" parameterType="long">
+		DELETE from Empresas
+		WHERE IDE = #{ide}
+	</delete>
+
+	<insert id="insert" parameterType="EmpresaModelo">
+		INSERT INTO Empresas (IDE, Nombre, Factura, IDA)
+		VALUES (#{ide}, #{nombre}, #{factura}, #{ida})
+	</insert>
+
+	<update id="update" parameterType="EmpresaModelo">
+		UPDATE Empresas
+		SET	Nombre = #{nombre}, Factura = #{factura}, IDA = #{ida}
+		WHERE IDE = #{ide}
+	</update>
+
+</mapper>
